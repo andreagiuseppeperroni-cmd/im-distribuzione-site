@@ -1,5 +1,5 @@
 'use client'
-
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -17,7 +17,7 @@ type Form = z.infer<typeof schema>
 export default function NewProduct() {
   const router = useRouter()
   const { register, handleSubmit } = useForm<Form>({ resolver: zodResolver(schema) })
-  const [imageUrl, setImageUrl] = useState('')
+ const [imageUrl, setImageUrl] = useState<string>('')
 
   async function onSubmit(values: Form) {
     await supabase.from('prodotti').insert({ ...values, immagine_url: imageUrl })
