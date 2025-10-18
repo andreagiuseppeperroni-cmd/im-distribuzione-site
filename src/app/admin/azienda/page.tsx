@@ -23,7 +23,7 @@ export default function GestioneAzienda() {
       const { data } = await supabase.from('azienda').select('*').single()
       if (data) {
         reset(data)
-        setLogoUrl(data.logo_url || '')
+        setImageUrl(data.logo_url || '')
       }
     }
     fetchData()
