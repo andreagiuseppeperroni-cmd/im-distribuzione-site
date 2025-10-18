@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
-
+import { getValues } from 'react-hook-form'
 const schema = z.object({
   nome: z.string().min(1),
   descrizione: z.string(),
@@ -32,20 +32,23 @@ export default function GestioneAzienda() {
     fetchData()
   }, [reset])
 
-  async function onSubmit(values: Form) {
-    await supabase.from('azienda').upsert({ ...values, logo_url: logoUrl })
-    alert('Salvato!')
+ async function onSubmit(values: Form) {
+  await supabase.from('azienda').upsert({ ...values, logo_url: imageUrl })
+  // ↓↓↓  Ricarica dati subito ↓↓↓
+  const { data } = await supabase.from('azienda').select('*').single()
+  if (data) reset(data)
+  alert('Salvato!')
   }
 
-  async function uploadLogo(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const filename = `${Date.now()}-${file.name}`
-    const { data } = await supabase.storage
-      .from('public')
-      .upload(filename, file, { upsert: true })
-    const url = supabase.storage.from('public').getPublicUrl(filename).data.publicUrl
-    setLogoUrl(url)
+ async function uploadLogo(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0]
+  if (!file) return
+  const filename = `${Date.now()}-${file.name}`
+  const { data } = await supabase.storage.from('public').upload(filename, file, { upsert: true })
+  const url = supabase.storage.from('public').getPublicUrl(filename).data.publicUrl
+  setImageUrl(url)
+  // ↓↓↓  Aggiorna anche il form ↓↓↓
+  reset({ ...getValues(), logo_url: url })
   }
 
   return (
