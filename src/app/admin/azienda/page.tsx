@@ -15,7 +15,7 @@ const schema = z.object({
 type Form = z.infer<typeof schema>
 
 export default function GestioneAzienda() {
-  const [logoUrl, setLogoUrl] = useState<string>('')
+  const [imageUrl, setImageUrl] = useState<string>('')
   const { register, handleSubmit, reset } = useForm<Form>({
     resolver: zodResolver(schema),
   })
@@ -33,7 +33,6 @@ export default function GestioneAzienda() {
 
  async function onSubmit(values: Form) {
   await supabase.from('azienda').upsert({ ...values, logo_url: imageUrl })
-  // ↓↓↓  Ricarica dati subito ↓↓↓
   const { data } = await supabase.from('azienda').select('*').single()
   if (data) reset(data)
   alert('Salvato!')
