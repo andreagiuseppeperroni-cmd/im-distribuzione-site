@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
-import { getValues } from 'react-hook-form'
+
 const schema = z.object({
   nome: z.string().min(1),
   descrizione: z.string(),
@@ -47,9 +47,8 @@ export default function GestioneAzienda() {
   const { data } = await supabase.storage.from('public').upload(filename, file, { upsert: true })
   const url = supabase.storage.from('public').getPublicUrl(filename).data.publicUrl
   setImageUrl(url)
-  // ↓↓↓  Aggiorna anche il form ↓↓↓
   reset({ ...getValues(), logo_url: url })
-  }
+}
 
   return (
     <div className="max-w-3xl mx-auto p-8">
