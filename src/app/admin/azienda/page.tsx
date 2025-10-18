@@ -72,9 +72,15 @@ export default function GestioneAzienda() {
           <input type="file" accept="image/*" onChange={uploadLogo} className="mt-1" />
         </label>
 
-        imageUrl && (
-          <Image src={imageUrl} alt="Logo" width={120} height={120} className="object-contain" />
-        )}
+        {imageUrl && (
+  <Image
+    src={imageUrl}
+    alt="Logo"
+    width={120}
+    height={120}
+    className="object-contain"
+  />
+)}
 
         <button
           type="submit"
