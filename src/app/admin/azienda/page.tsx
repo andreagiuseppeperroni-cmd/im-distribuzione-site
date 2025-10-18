@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import Image from 'next/image'
-
 const schema = z.object({
   nome: z.string().min(1),
   descrizione: z.string(),
