@@ -30,12 +30,13 @@ export default function GestioneAzienda() {
     fetchData()
   }, [reset])
 
- async function onSubmit(values: Form) {
+async function onSubmit(values: Form) {
   await supabase.from('azienda').upsert({ ...values, logo_url: imageUrl })
+  // ↓↓↓  Ricarica dati e aggiorna form ↓↓↓
   const { data } = await supabase.from('azienda').select('*').single()
   if (data) reset(data)
   alert('Salvato!')
-  }
+}
 
  async function uploadLogo(e: React.ChangeEvent<HTMLInputElement>) {
   const file = e.target.files?.[0]
