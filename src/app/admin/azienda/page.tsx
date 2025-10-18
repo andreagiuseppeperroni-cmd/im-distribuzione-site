@@ -15,7 +15,7 @@ const schema = z.object({
 type Form = z.infer<typeof schema>
 
 export default function GestioneAzienda() {
-  const [imageUrl, setImageUrl] = useState<string>('')
+  const [imageUrl, setLogoUrl] = useState<string>('')
   const { register, handleSubmit, reset } = useForm<Form>({
     resolver: zodResolver(schema),
   })
