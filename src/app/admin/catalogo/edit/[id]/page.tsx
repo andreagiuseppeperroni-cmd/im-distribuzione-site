@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -19,7 +19,6 @@ export default function EditProduct() {
   const router = useRouter()
   const { id } = useParams() as { id: string }
   const [imageUrl, setImageUrl] = useState<string>('')
-
   const { register, handleSubmit, reset } = useForm<Form>({ resolver: zodResolver(schema) })
 
   useEffect(() => {
