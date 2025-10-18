@@ -9,7 +9,8 @@ import Image from 'next/image'
 const schema = z.object({
   nome: z.string().min(1),
   descrizione: z.string(),
-  colore_principale: z.string().regex(/^#[0-9a-f]{6}$/i),
+  colore_principale: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+  logo_url: z.string().optional(),
 })
 
 type Form = z.infer<typeof schema>
