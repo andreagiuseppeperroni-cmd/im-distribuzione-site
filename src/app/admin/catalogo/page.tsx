@@ -13,8 +13,8 @@ export default function AdminCatalogo() {
   }, [])
 
   async function fetchProdotti() {
-   const { data } = await supabase
-  .from('products')
+ const { data } = await supabase
+  .from('products')   // ← usa il nome ESATTO della tabella
   .select('*')
   .order('created_at', { ascending: false })
 
