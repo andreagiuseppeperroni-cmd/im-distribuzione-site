@@ -42,8 +42,8 @@ async function onSubmit(values: Form) {
   const file = e.target.files?.[0]
   if (!file) return
   const filename = `${Date.now()}-${file.name}`
-  const { data } = await supabase.storage.from('public').upload(filename, file, { upsert: true })
-  const { data: publicUrl } = supabase.storage.from('public').getPublicUrl(filename)
+  const { data } = await supabase.storage.from('image').upload(filename, file, { upsert: true })
+  const { data: publicUrl } = supabase.storage.from('image').getPublicUrl(filename)
 const url = publicUrl.publicUrl
   setImageUrl(url)
   reset({ ...getValues(), logo_url: url })
