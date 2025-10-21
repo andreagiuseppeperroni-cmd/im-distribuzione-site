@@ -34,7 +34,8 @@ export default function NewProduct() {
     if (!file) return
     const filename = `${Date.now()}-${file.name}`
     const { data } = await supabase.storage.from('public').upload(filename, file, { upsert: true })
-    const url = supabase.storage.from('public').getPublicUrl(filename).data.publicUrl
+    const { data: publicUrl } = supabase.storage.from('images').getPublicUrl(filename)
+const url = publicUrl.publicUrl
     setImageUrl(url)
   }
 
