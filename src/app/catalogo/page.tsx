@@ -1,5 +1,5 @@
-export const revalidate = 0
 'use client'
+export const revalidate = 0
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
