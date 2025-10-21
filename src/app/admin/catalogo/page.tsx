@@ -17,7 +17,7 @@ export default function AdminCatalogo() {
   .from('products')
   .select('*')
   .order('created_at', { ascending: false })
-  .cache('no-store')   // forza aggiornamento
+
   }
 
   async function elimina(id: number) {
