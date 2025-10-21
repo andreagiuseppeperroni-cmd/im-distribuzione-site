@@ -19,10 +19,12 @@ export default function NewProduct() {
   const { register, handleSubmit } = useForm<Form>({ resolver: zodResolver(schema) })
  const [imageUrl, setImageUrl] = useState<string>('')
 
-  async function onSubmit(values: Form) {
-    await supabase.from('prodotti').insert({ ...values, immagine_url: imageUrl })
-    router.push('/admin/catalogo')
-  }
+ async function onSubmit(values: Form) {
+  await supabase.from('prodotti').insert({ ...values, immagine_url: imageUrl })
+  // ↓↓↓  Ricarica lista  ↓↓↓
+  await fetchProdotti()
+  router.push('/admin/catalogo')
+}
 
   async function uploadImage(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
