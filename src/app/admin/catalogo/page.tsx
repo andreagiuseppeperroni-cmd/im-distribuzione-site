@@ -13,8 +13,11 @@ export default function AdminCatalogo() {
   }, [])
 
   async function fetchProdotti() {
-    const { data } = await supabase.from('prodotti').select('*').order('created_at', { ascending: false })
-    setProdotti(data || [])
+   const { data } = await supabase
+  .from('products')
+  .select('*')
+  .order('created_at', { ascending: false })
+  .cache('no-store')   // forza aggiornamento
   }
 
   async function elimina(id: number) {
