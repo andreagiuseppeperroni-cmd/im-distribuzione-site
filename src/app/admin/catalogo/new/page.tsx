@@ -22,8 +22,13 @@ export default function NewProduct() {
   const { register, handleSubmit } = useForm<Form>({ resolver: zodResolver(schema) })
  const [imageUrl, setImageUrl] = useState<string>('')
 
- async function onSubmit(values: Form) {
-  await supabase.from('products').insert({ ...values, immagine_url: imageUrl })
+await supabase.from('products').insert({
+  name: values.nome,
+  description: values.descrizione,
+  price: values.prezzo,
+  category: values.categoria || 'Generico',
+  stock_quantity: values.quantita || 0,
+})
   // ↓↓↓  Ricarica lista  ↓↓↓
   await fetchProdotti()
   router.push('/admin/catalogo')
