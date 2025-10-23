@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 async function fetchProdotti() {
-  const { data } = await supabase.from('prodotti').select('*').order('created_at', { ascending: false })
+  const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
   return data || []
 }
 const schema = z.object({
@@ -23,7 +23,7 @@ export default function NewProduct() {
  const [imageUrl, setImageUrl] = useState<string>('')
 
  async function onSubmit(values: Form) {
-  await supabase.from('prodotti').insert({ ...values, immagine_url: imageUrl })
+  await supabase.from('products').insert({ ...values, immagine_url: imageUrl })
   // ↓↓↓  Ricarica lista  ↓↓↓
   await fetchProdotti()
   router.push('/admin/catalogo')
