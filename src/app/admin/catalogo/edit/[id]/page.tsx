@@ -23,7 +23,7 @@ export default function EditProduct() {
 
   useEffect(() => {
     async function fetchProduct() {
-      const { data } = await supabase.from('prodotti').select('*').eq('id', id).single()
+      const { data } = await supabase.from('products').select('*').eq('id', id).single()
       if (data) {
         reset(data)
         setImageUrl(data.immagine_url || '')
@@ -33,7 +33,7 @@ export default function EditProduct() {
   }, [id, reset])
 
   async function onSubmit(values: Form) {
-    await supabase.from('prodotti').update({ ...values, immagine_url: imageUrl }).eq('id', id)
+    await supabase.from('products').update({ ...values, immagine_url: imageUrl }).eq('id', id)
     router.push('/admin/catalogo')
   }
 
