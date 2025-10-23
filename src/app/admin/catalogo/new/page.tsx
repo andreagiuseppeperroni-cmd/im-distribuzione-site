@@ -46,7 +46,7 @@ export default function NewProduct() {
     const { data } = await supabase.storage.from('images').upload(filename, file, { upsert: true })
     const url = supabase.storage.from('images').getPublicUrl(filename).data.publicUrl
     setImageUrl(url)
-    reset({ ...getValues(), logo_url: url })
+    reset({ ...getValues() })   
   }
 
   return (
