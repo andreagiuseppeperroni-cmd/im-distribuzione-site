@@ -7,6 +7,11 @@ import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 
+async function fetchProdotti() {
+  const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
+  return data || []
+}
+
 const schema = z.object({
   nome: z.string().min(1),
   descrizione: z.string(),
