@@ -6,13 +6,13 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
 export default function AdminCatalogo() {
-  const [prodotti, setProdotti] = useState<any[]>([])
+  const [products, setProducts] = useState<any[]>([])
 
   useEffect(() => {
-    fetchProdotti()
+    fetchProducts()
   }, [])
 
-  async function fetchProdotti() {
+  async function fetchProducts() {
  const { data } = await supabase
   .from('products')   // ← usa il nome ESATTO della tabella
   .select('*')
@@ -22,8 +22,8 @@ export default function AdminCatalogo() {
 
   async function elimina(id: number) {
     if (!confirm('Eliminare questo prodotto?')) return
-    await supabase.from('prodotti').delete().eq('id', id)
-    fetchProdotti()
+    await supabase.from('products').delete().eq('id', id)
+    fetchProducts()
   }
 
   return (
@@ -39,7 +39,7 @@ export default function AdminCatalogo() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {prodotti.map((p) => (
+        {products.map((p) => (
           <div key={p.id} className="border rounded p-4">
             {p.immagine_url && (
               <Image
