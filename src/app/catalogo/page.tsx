@@ -7,14 +7,14 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
 export default function CatalogoPage() {
-  const [prodotti, setProdotti] = useState<any[]>([])
+  const [products, setProducts] = useState<any[]>([])
 
   useEffect(() => {
-    async function fetchProdotti() {
+    async function fetchProducts() {
       const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
-      setProdotti(data || [])
+      setProducts(data || [])
     }
-    fetchProdotti()
+    fetchProducts()
   }, [])
 
   return (
