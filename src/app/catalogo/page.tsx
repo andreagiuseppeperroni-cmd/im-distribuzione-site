@@ -30,7 +30,7 @@ export default function CatalogoPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {prodotti.map((p) => (
+        {products.map((p) => (
           <div key={p.id} className="border rounded p-4 hover:shadow">
             {p.immagine_url && (
               <Image
