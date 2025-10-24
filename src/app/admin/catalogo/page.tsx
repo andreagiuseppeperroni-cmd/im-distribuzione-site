@@ -1,29 +1,34 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 export default function AdminCatalogo() {
-  const [products, setProducts] = useState<any[]>([])
+  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
-    fetchProducts()
-  }, [])
+    fetchProducts();
+  }, []);
 
   async function fetchProducts() {
- const { data } = await supabase
-  .from('products')   // ← usa il nome ESATTO della tabella
-  .select('*')
-  .order('created_at', { ascending: false })
+    const { data } = await supabase
+      .from("products") // ← usa il nome ESATTO della tabella
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) {
+      console.error("Errore caricamento prodotti:", error);
+      return;
+    }
 
+    setProducts(data || []);
   }
 
   async function elimina(id: number) {
-    if (!confirm('Eliminare questo prodotto?')) return
-    await supabase.from('products').delete().eq('id', id)
-    fetchProducts()
+    if (!confirm("Eliminare questo prodotto?")) return;
+    await supabase.from("products").delete().eq("id", id);
+    fetchProducts();
   }
 
   return (
@@ -52,7 +57,9 @@ export default function AdminCatalogo() {
             )}
             <h2 className="text-lg font-semibold">{p.nome}</h2>
             <p className="text-gray-700 text-sm mt-1">{p.descrizione}</p>
-            {p.prezzo && <p className="mt-2 font-bold">€ {Number(p.prezzo).toFixed(2)}</p>}
+            {p.prezzo && (
+              <p className="mt-2 font-bold">€ {Number(p.prezzo).toFixed(2)}</p>
+            )}
 
             <div className="mt-3 flex gap-2">
               <Link
@@ -72,5 +79,5 @@ export default function AdminCatalogo() {
         ))}
       </div>
     </div>
-  )
+  );
 }
