@@ -9,7 +9,7 @@ import { z } from 'zod'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 
-async function fetchProdotti() {
+async function fetchProducts() {
   const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
   return data || []
 }
@@ -37,7 +37,7 @@ export default function NewProduct() {
       category: values.categoria || 'Generico',
       stock_quantity: values.quantita || 0,
     })
-    await fetchProdotti()
+    await fetchProducts()
     router.push('/admin/catalogo')
   }
 
