@@ -17,7 +17,7 @@ export default function AdminCatalogo() {
       .from("products") // ← usa il nome ESATTO della tabella
       .select("*")
       .order("created_at", { ascending: false });
-    if (error) {
+    if (Error) {
       console.error("Errore caricamento prodotti:", error);
       return;
     }
