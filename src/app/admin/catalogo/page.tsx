@@ -13,17 +13,18 @@ export default function AdminCatalogo() {
   }, []);
 
   async function fetchProducts() {
-    const { data } = await supabase
-      .from("products") // ← usa il nome ESATTO della tabella
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (Error) {
-      console.error("Errore caricamento prodotti:", error);
-      return;
-    }
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .order('created_at', { ascending: false })
 
-    setProducts(data || []);
+  if (error) {          // <-- qui: "error", non "Error"
+    console.error('Errore caricamento prodotti:', error)
+    return
   }
+
+  setProducts(data || [])
+}
 
   async function elimina(id: number) {
     if (!confirm("Eliminare questo prodotto?")) return;
